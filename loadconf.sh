@@ -9,12 +9,23 @@ CONFIG_FILE="demo.env"
 
 echo "=== Bash Config Loader ==="
 
-# Step 1: Check if file exists
+# Step 1: Validate config file
 if [[ ! -f "$CONFIG_FILE" ]]; then
-  echo "Error: $CONFIG_FILE not found!"
-  echo "Please create one with key=value pairs."
+  echo "Error: Configuration file '$CONFIG_FILE' not found!"
+  echo "Please create it with key=value pairs."
   exit 1
 fi
 
-echo "Configuration file found: $CONFIG_FILE"
+echo "Configuration file found."
 echo "Loading variables..."
+
+# Step 2: Automatically export all variables
+set -o allexport
+source "$CONFIG_FILE"
+set +o allexport
+
+echo "Variables loaded successfully!"
+echo
+echo "WEB_ROOT: $WEB_ROOT"
+echo "PORT: $PORT"
+echo "DEBUG: $DEBUG"
