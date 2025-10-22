@@ -2,10 +2,29 @@
 ###############################################################################
 # loadconf.sh
 # Author: Anudeep Cherukupalli
-# Description: Basic configuration loader that checks for a .env file.
+# Description:
+#   Loads environment variables from demo.env using set -a and source,
+#   validates required variables, and prints a formatted configuration summary.
 ###############################################################################
 
 CONFIG_FILE="demo.env"
+
+# === Functions ===
+
+# Print formatted configuration summary
+print_summary() {
+  echo
+  echo "=================================================="
+  echo "          CYBERCAFE CONFIGURATION SUMMARY"
+  echo "=================================================="
+  printf "%-20s : %s\n" "WEB_ROOT" "${WEB_ROOT:-<undefined>}"
+  printf "%-20s : %s\n" "PORT" "${PORT:-<undefined>}"
+  printf "%-20s : %s\n" "DEBUG" "${DEBUG:-<undefined>}"
+  echo "=================================================="
+  echo
+}
+
+# === Main Execution ===
 
 echo "=== Bash Config Loader ==="
 
@@ -40,8 +59,5 @@ else
   echo "✅ All required variables loaded successfully."
 fi
 
-echo
-echo "🔍 Current Configuration:"
-echo "WEB_ROOT: ${WEB_ROOT:-<undefined>}"
-echo "PORT: ${PORT:-<undefined>}"
-echo "DEBUG: ${DEBUG:-<undefined>}"
+# Step 4: Print summary
+print_summary
