@@ -1,0 +1,42 @@
+[2025-10-27 10:21:50] [INFO] Starting Bash Config Loader
+[2025-10-27 10:21:50] [INFO] Configuration file found.
+[2025-10-27 10:21:50] [INFO] Loading variables...
+[2025-10-27 10:21:50] [INFO] All required variables loaded successfully.
+[2025-10-27 10:21:50] [INFO] Printing configuration summary
+==================================================
+          CYBERCAFE CONFIGURATION SUMMARY
+==================================================
+WEB_ROOT             : /var/www/html
+PORT                 : 8080
+DEBUG                : true
+==================================================
+
+[2025-10-27 10:21:50] [INFO] Configuration loading complete.
+[2025-10-27 10:22:20] [INFO] Starting Bash Config Loader
+[2025-10-27 10:22:20] [INFO] Configuration file found.
+[2025-10-27 10:22:20] [INFO] Loading variables...
+[2025-10-27 10:22:20] [INFO] All required variables loaded successfully.
+[2025-10-27 10:22:20] [INFO] Printing configuration summary
+==================================================
+          CYBERCAFE CONFIGURATION SUMMARY
+==================================================
+WEB_ROOT             : /var/www/html
+PORT                 : 8080
+DEBUG                : true
+==================================================
+
+[2025-10-27 10:22:20] [INFO] Configuration loading complete.
+[2025-10-27 10:25:25] [INFO] Starting Bash Config Loader
+[2025-10-27 10:25:25] [INFO] Configuration file found.
+[2025-10-27 10:25:25] [INFO] Loading variables...
+[2025-10-27 10:25:25] [INFO] All required variables loaded successfully.
+[2025-10-27 10:25:25] [INFO] Printing configuration summary
+==================================================
+          CYBERCAFE CONFIGURATION SUMMARY
+==================================================
+WEB_ROOT             : /var/www/html
+PORT                 : 8080
+DEBUG                : true
+==================================================
+
+[2025-10-27 10:25:25] [INFO] Configuration loading complete.

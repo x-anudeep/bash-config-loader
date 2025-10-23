@@ -4,39 +4,53 @@
 # Author: Anudeep Cherukupalli
 # Description:
 #   Loads environment variables from demo.env using set -a and source,
-#   validates required variables, and prints a formatted configuration summary.
+#   validates required variables, logs progress to logs/config_loader.log,
+#   and prints a formatted configuration summary.
 ###############################################################################
 
 CONFIG_FILE="demo.env"
+LOG_FILE="logs/config_loader.log"
 
 # === Functions ===
 
+# Ensure log directory exists
+mkdir -p "$(dirname "$LOG_FILE")"
+
+# Log both to terminal and file
+log() {
+  local level="$1"
+  local message="$2"
+  local timestamp
+  timestamp="$(date '+%Y-%m-%d %H:%M:%S')"
+  echo "[$timestamp] [$level] $message" | tee -a "$LOG_FILE"
+}
+
 # Print formatted configuration summary
 print_summary() {
-  echo
-  echo "=================================================="
-  echo "          CYBERCAFE CONFIGURATION SUMMARY"
-  echo "=================================================="
-  printf "%-20s : %s\n" "WEB_ROOT" "${WEB_ROOT:-<undefined>}"
-  printf "%-20s : %s\n" "PORT" "${PORT:-<undefined>}"
-  printf "%-20s : %s\n" "DEBUG" "${DEBUG:-<undefined>}"
-  echo "=================================================="
-  echo
+  log "INFO" "Printing configuration summary"
+  echo "==================================================" | tee -a "$LOG_FILE"
+  echo "          CYBERCAFE CONFIGURATION SUMMARY" | tee -a "$LOG_FILE"
+  echo "==================================================" | tee -a "$LOG_FILE"
+  printf "%-20s : %s\n" "WEB_ROOT" "${WEB_ROOT:-<undefined>}" | tee -a "$LOG_FILE"
+  printf "%-20s : %s\n" "PORT" "${PORT:-<undefined>}" | tee -a "$LOG_FILE"
+  printf "%-20s : %s\n" "DEBUG" "${DEBUG:-<undefined>}" | tee -a "$LOG_FILE"
+  echo "==================================================" | tee -a "$LOG_FILE"
+  echo | tee -a "$LOG_FILE"
 }
 
 # === Main Execution ===
 
-echo "=== Bash Config Loader ==="
+log "INFO" "Starting Bash Config Loader"
 
 # Step 1: Check if file exists
 if [[ ! -f "$CONFIG_FILE" ]]; then
-  echo "❌ Error: Configuration file '$CONFIG_FILE' not found!"
+  log "ERROR" "Configuration file '$CONFIG_FILE' not found!"
   echo "Please create it with key=value pairs."
   exit 1
 fi
 
-echo "✅ Configuration file found."
-echo "🔄 Loading variables..."
+log "INFO" "Configuration file found."
+log "INFO" "Loading variables..."
 
 # Step 2: Auto-export and load variables
 set -o allexport
@@ -53,11 +67,12 @@ for var in WEB_ROOT PORT DEBUG; do
 done
 
 if (( ${#missing_vars[@]} > 0 )); then
-  echo "⚠️ Warning: Missing required variables: ${missing_vars[*]}"
-  echo "Please check your demo.env file."
+  log "WARN" "Missing required variables: ${missing_vars[*]}"
 else
-  echo "✅ All required variables loaded successfully."
+  log "INFO" "All required variables loaded successfully."
 fi
 
 # Step 4: Print summary
 print_summary
+
+log "INFO" "Configuration loading complete."
